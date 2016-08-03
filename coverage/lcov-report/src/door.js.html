@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/door.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">src/</a> door.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">45.83% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>22/48</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">45.83% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>22/48</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const path = require('path')
+const LOG_PREFIX = `"${path.basename(__filename)}":`
+const log = require('./logger')
+const verbose = log.verbose.bind(log, LOG_PREFIX)
+const info = log.info.bind(log, LOG_PREFIX)
+const error = log.error.bind(log, LOG_PREFIX)
+&nbsp;
+const config = require('./config')
+const diehard = require('diehard')
+const JWTGenerator = require('jwt-token-generator')
+const jwtGenerator = new JWTGenerator(config.loginUrl, config.privateKey, true)
+const PIN_DOOR_STATE = config.pins.readDoorState
+const Promise = require('bluebird')
+const gpio = Promise.promisifyAll(require('pi-gpio'))
+const request = require('http-as-promised')
+const url = require('url')
+&nbsp;
+class Door {
+  _sendState <span class="fstat-no" title="function not covered" >(state, isRetry = false) {</span>
+<span class="cstat-no" title="statement not covered" >    const self = this</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    info('sendState called.', 'isRetry:', isRetry)</span>
+<span class="cstat-no" title="statement not covered" >    return Promise</span>
+      .try(() =&gt; <span class="cstat-no" title="statement not covered" >isRetry ? jwtGenerator.makeNewToken('/doors', 'urn:home-automation/garage') : jwtGenerator.makeToken('/doors', 'urn:home-automation/garage'))</span>
+      .then(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        info('token generated.  token:', !!token)</span>
+<span class="cstat-no" title="statement not covered" >        return request({</span>
+          uri: url.resolve(config.serverUrl, 'states'),
+          method: 'POST',
+          auth: {
+            bearer: token
+          },
+          form: {is_open: state === 1}
+        })
+      })
+      .then(() =&gt; {
+<span class="cstat-no" title="statement not covered" >        info('Server state update complete successfully.')</span>
+<span class="cstat-no" title="statement not covered" >        self.lastState = state</span>
+      })
+      .catch(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        error('Error while updating state. err:', err)</span>
+<span class="cstat-no" title="statement not covered" >        return Promise</span>
+          .delay(1000)
+          .then(() =&gt; <span class="cstat-no" title="statement not covered" >self._sendState(state, true))</span>
+      })
+      .finally(() =&gt; {
+<span class="cstat-no" title="statement not covered" >        self.isUpdatingServer = false</span>
+      })
+  }
+&nbsp;
+  monitor () {
+    info('monitor called.')
+    const self = this
+    return Promise
+      .resolve(gpio.openAsync(PIN_DOOR_STATE, 'input')
+        .then(() =&gt; {
+          info('opened PIN_DOOR_STATE')
+          diehard.register(done =&gt; {
+<span class="cstat-no" title="statement not covered" >            info('closing PIN_DOOR_STATE')</span>
+<span class="cstat-no" title="statement not covered" >            gpio.close(PIN_DOOR_STATE, () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              info('closed PIN_DOOR_STATE')</span>
+<span class="cstat-no" title="statement not covered" >              done()</span>
+            })
+          })
+        }))
+      .then(() =&gt;
+        setInterval(() =&gt; {
+<span class="cstat-no" title="statement not covered" >          verbose('setInterval called.')</span>
+<span class="cstat-no" title="statement not covered" >          Promise</span>
+            .resolve(gpio.readAsync(PIN_DOOR_STATE))
+            .then(state =&gt; {
+<span class="cstat-no" title="statement not covered" >              verbose('read state:', state)</span>
+<span class="cstat-no" title="statement not covered" >              if (self.lastState === state || self.isUpdatingServer) {</span>
+<span class="cstat-no" title="statement not covered" >                verbose('state has not changed.  Returning.',</span>
+                  'lastState:', self.lastState,
+                  'state:', state,
+                  'isUpdatingServer:', self.isUpdatingServer)
+<span class="cstat-no" title="statement not covered" >                return</span>
+              }
+<span class="cstat-no" title="statement not covered" >              self.isUpdatingServer = true</span>
+<span class="cstat-no" title="statement not covered" >              info('Door state changed.',</span>
+                'State: ', state ? 'Open' : 'Close')
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              return self._sendState(state)</span>
+            })
+            .catch(err =&gt; <span class="cstat-no" title="statement not covered" >error('#7', err))</span>
+        }, 1000)
+      )
+  }
+}
+&nbsp;
+module.exports = Door
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 03 2016 00:41:00 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

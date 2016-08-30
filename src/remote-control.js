@@ -9,7 +9,7 @@ class RemoteControl {
     this.pin = pin
   }
 
-  _initialize () {
+  initialize () {
     const self = this
 
     return gpio.openAsync(self.pin, 'output')
@@ -26,22 +26,15 @@ class RemoteControl {
   }
 
   _pushButton () {
-    const self = this
-
-    if (!self.isDoorSignalGPIOSetOutput) {
-      info('Opening PIN_OPEN_DOOR_SIGNAL.')
-      self.isDoorSignalGPIOSetOutput = true
-      return self._initialize()
-    } else {
-      info('Pin is already open.  Setting to low (active).')
-      return gpio.writeAsync(self.pin, 0)
-    }
+    return this.pin < 0
+      ? Promise.resolve()
+      : gpio.writeAsync(this.pin, 1)
   }
 
   _releaseButton () {
     return this.pin < 0
       ? Promise.resolve()
-      : gpio.writeAsync(this.pin, 1)
+      : gpio.writeAsync(this.pin, 0)
   }
 
   changeState () {

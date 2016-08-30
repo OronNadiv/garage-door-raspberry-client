@@ -25,6 +25,7 @@ class Client {
       .then(() => self.ledClientUp.turnOn())
       .then(() => self.ledConnectedToServer.initialize())
       .then(() => self.ledConnectedToServer.turnOff())
+      .then(() => self.remoteControl.initialize())
       .then(() => {
         info('calling socket-io')
         const options = {

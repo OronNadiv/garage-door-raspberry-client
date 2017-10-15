@@ -11,12 +11,6 @@ if (!config.serverUrl) {
   process.exit(1)
 }
 
-config.pushUrl = process.env.PUSH_URL || (config.production ? null : 'http://localhost:3005')
-if (!config.pushUrl) {
-  error('Push server URL could not be found in the environment variable.  Please set \'PUSH_URL\'.')
-  process.exit(1)
-}
-
 config.loginUrl = process.env.LOGIN_URL || (config.production ? null : 'http://localhost:3001')
 if (!config.loginUrl) {
   error('Login URL could not be found in the environment variable.  Please set \'LOGIN_URL\'.')

@@ -12,6 +12,8 @@ const gpio = Promise.promisifyAll(require('pi-gpio'))
 const request = require('http-as-promised')
 const url = require('url')
 
+let intervalHandler
+
 class Door {
   _sendState (state, isRetry = false) {
     const self = this
@@ -53,6 +55,10 @@ class Door {
         .then(() => {
           info('opened PIN_DOOR_STATE')
           diehard.register(done => {
+            if (intervalHandler) {
+              clearInterval(intervalHandler)
+              intervalHandler = null
+            }
             info('closing PIN_DOOR_STATE')
             gpio.close(PIN_DOOR_STATE, () => {
               info('closed PIN_DOOR_STATE')
@@ -60,8 +66,8 @@ class Door {
             })
           })
         }))
-      .then(() =>
-        setInterval(() => {
+      .then(() => {
+        intervalHandler = setInterval(() => {
           verbose('setInterval called.')
           Promise
             .resolve(gpio.readAsync(PIN_DOOR_STATE))
@@ -82,7 +88,7 @@ class Door {
             })
             .catch(err => error('#7', err))
         }, 1000)
-      )
+      })
   }
 }
 

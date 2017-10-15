@@ -7,7 +7,7 @@ const Door = require('./door')
 const LED = require('raspberry-pi-led')
 const Promise = require('bluebird')
 const RemoteControl = require('./remote-control')
-const SocketIO = require('./socket-io')
+const pubnubConnect = require('./pubnub')
 
 class Client {
   constructor () {
@@ -15,7 +15,6 @@ class Client {
     this.ledConnectedToServer = new LED('PIN_CONNECTED_TO_SERVER', config.pins.connectedToServer)
     this.door = new Door()
     this.remoteControl = new RemoteControl(config.pins.openDoorSignal)
-    this.socketIO = new SocketIO(this.ledConnectedToServer)
   }
 
   run () {
@@ -26,25 +25,28 @@ class Client {
       .then(() => self.ledConnectedToServer.initialize())
       .then(() => self.ledConnectedToServer.turnOff())
       .then(() => {
-        info('calling socket-io')
-        const options = {
-          subject: '/doors',
-          audience: 'urn:home-automation/garage',
-          rooms: ['garage-doors'],
-          events: [{
-            name: 'TOGGLE_CREATED',
-            callback: data => {
-              info('TOGGLE_CREATED called. data:', data)
-              Promise
-                .resolve(self.remoteControl.changeState())
-                .catch(err => {
-                  error('Got an error while calling remoteControl.changeState(). Exiting process.  err:', err)
-                  process.exit(2)
-                })
-            }
-          }]
-        }
-        return self.socketIO.connect(options)
+        info('calling pubnub')
+        const events = [{
+          system: 'GARAGE',
+          type: 'TOGGLE_CREATED',
+          callback: payload => {
+            info('TOGGLE_CREATED called. payload:', payload)
+            Promise
+              .resolve(self.remoteControl.changeState())
+              .catch(err => {
+                error('Got an error while calling remoteControl.changeState(). Exiting process.  err:', err)
+                process.exit(2)
+              })
+          }
+        }]
+        return pubnubConnect(
+          self.ledConnectedToServer,
+          events,
+          {
+            subject: '/doors',
+            audience: 'urn:home-automation/garage'
+          }
+        )
       })
       .then(() => self.door.monitor())
       .then(() => diehard.listen()) // diehard uses 'this' context.  That is why we have to call it this way.

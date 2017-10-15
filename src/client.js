@@ -25,7 +25,6 @@ class Client {
       .then(() => self.ledConnectedToServer.initialize())
       .then(() => self.ledConnectedToServer.turnOff())
       .then(() => {
-        info('calling pubnub')
         const events = [{
           system: 'GARAGE',
           type: 'TOGGLE_CREATED',
@@ -39,6 +38,8 @@ class Client {
               })
           }
         }]
+
+        info('calling pubnub')
         return pubnubConnect(
           self.ledConnectedToServer,
           events,

@@ -4,13 +4,17 @@ const error = require('debug')('ha:door:error')
 
 const config = require('./config')
 const diehard = require('diehard')
-const JWTGenerator = require('jwt-generator')
-const jwtGenerator = new JWTGenerator(config.loginUrl, config.privateKey, true)
 const PIN_DOOR_STATE = config.pins.readDoorState
 const Promise = require('bluebird')
 const gpio = Promise.promisifyAll(require('pi-gpio'))
 const request = require('http-as-promised')
 const url = require('url')
+const JWTGenerator = require('jwt-generator')
+const jwtGenerator = new JWTGenerator({
+  loginUrl: config.loginUrl,
+  privateKey: config.privateKey,
+  useRetry: true
+})
 
 let intervalHandler
 
@@ -20,7 +24,11 @@ class Door {
 
     info('sendState called.', 'isRetry:', isRetry)
     return Promise
-      .try(() => isRetry ? jwtGenerator.makeNewToken('/doors', 'urn:home-automation/garage') : jwtGenerator.makeToken('/doors', 'urn:home-automation/garage'))
+      .try(() => {
+        return isRetry
+          ? jwtGenerator.makeNewToken({subject: '/doors', audience: 'urn:home-automation/garage'})
+          : jwtGenerator.makeToken({subject: '/doors', audience: 'urn:home-automation/garage'})
+      })
       .then(token => {
         info('token generated.  token:', !!token)
         return request({

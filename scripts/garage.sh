@@ -14,4 +14,6 @@ export LOGIN_URL= # https://<LOGIN_SERVER_URL>
 export PINS_OPEN_DOOR_SIGNAL= # <GPIO PIN FOR DOOR REMOTE>
 export PINS_READ_DOOR_STATE= # <GPIO PIN FOR DOOR STATE (OPEN/CLOSE)>
 export SERVER_URL= # https://<GARAGE_SERVER_URL>
+export PUBNUB_PUBLISH_KEY= # pubnub publish key
+export PUBNUB_SUBSCRIBE_KEY= # pubnub subscribe key
 npm start

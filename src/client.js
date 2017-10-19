@@ -11,8 +11,12 @@ const pubnubConnect = require('./pubnub')
 
 class Client {
   constructor () {
-    this.ledClientUp = new LED('PIN_CLIENT_UP', config.pins.clientUp)
-    this.ledConnectedToServer = new LED('PIN_CONNECTED_TO_SERVER', config.pins.connectedToServer)
+    this.ledClientUp = config.pins.clientUp < 0
+      ? null
+      : new LED({name: 'PIN_CLIENT_UP', pin: config.pins.clientUp})
+    this.ledConnectedToServer = config.pins.connectedToServer < 0
+      ? null
+      : new LED({name: 'PIN_CONNECTED_TO_SERVER', pin: config.pins.connectedToServer})
     this.door = new Door()
     this.remoteControl = new RemoteControl(config.pins.openDoorSignal)
   }
@@ -20,10 +24,10 @@ class Client {
   run () {
     const self = this
     return Promise
-      .resolve(self.ledClientUp.initialize())
-      .then(() => self.ledClientUp.turnOn())
-      .then(() => self.ledConnectedToServer.initialize())
-      .then(() => self.ledConnectedToServer.turnOff())
+      .try(() => self.ledClientUp && self.ledClientUp.initialize())
+      .then(() => self.ledClientUp && self.ledClientUp.turnOn())
+      .then(() => self.ledConnectedToServer && self.ledConnectedToServer.initialize())
+      .then(() => self.ledConnectedToServer && self.ledConnectedToServer.turnOff())
       .then(() => {
         const events = [{
           system: 'GARAGE',

@@ -16,7 +16,7 @@ const jwt = require('jsonwebtoken')
 const Promise = require('bluebird')
 const diehard = require('diehard')
 
-const subscribe = (ledClientUp, events, {subject, audience}) => {
+const subscribe = (ledConnectedToServer, events, {subject, audience}) => {
   let _unsubscribe
   diehard.register((done) => {
     verbose('diehard - trigger.', '_unsubscribe:', _unsubscribe)
@@ -59,11 +59,11 @@ const subscribe = (ledClientUp, events, {subject, audience}) => {
     switch (category) {
       case CONNECTED:
       case RECONNECTED:
-        verbose('Calling ledClientUp.turnOn')
-        return Promise.resolve(ledClientUp.turnOn())
+        verbose('Calling ledConnectedToServer.turnOn')
+        return Promise.resolve(ledConnectedToServer && ledConnectedToServer.turnOn())
       case NETWORK_DOWN:
-        verbose('Calling ledClientUp.turnOff')
-        return Promise.resolve(ledClientUp.turnOff())
+        verbose('Calling ledConnectedToServer.turnOff')
+        return Promise.resolve(ledConnectedToServer && ledConnectedToServer.turnOff())
       case ACCESS_DENIED:
         info('Received ACCESS_DENIED.')
         return Promise

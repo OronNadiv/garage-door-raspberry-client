@@ -4,8 +4,6 @@ This repository contains the raspberry-pi client for the garage door.
 [![JavaScript Style Guide][standard-image]][standard-url]
 [![Dependencies][dependencies-image]][dependencies-url]
 [![DevDependencies][dependencies-dev-image]][dependencies-dev-url]
-[![Build Status][travis-image]][travis-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
 
 I suggest you first [read][overview-url] about the different components of the home automation application.
 This will help you understand better the general architecture and different functions of the system.
@@ -26,6 +24,8 @@ __PINS\_CONNECTED\_TO\_SERVER__ (optional): GPIO pin (output) that sets to high 
 __PINS\_OPEN\_DOOR\_SIGNAL__ (required): GPIO pin (output) that sets to high when opening/closing the door. Default: `18`  
 __PINS\_READ\_DOOR\_STATE__ (required): Description: GPIO pin (input) that reads door state (open/close). Default: `15`  
 __PRIVATE\_KEY__ (required): Generated private key.  Public key should be shared with the [authentication][auth-url] server. See [here][private-public-keys-url].  
+__PUBNUB\_PUBLISH\_KEY__ (required): PubNub's publisher key.  
+__PUBNUB\_SUBSCRIBE\_KEY__ (requireD): = PubNub's subscriber key.  
 __SERVER\_URL__ (required): url to the [garage door][garage-url] server. Example: `garage.herokuapp.com`
 
 ![Circuit Diagram](/circuit.jpg?raw=true)

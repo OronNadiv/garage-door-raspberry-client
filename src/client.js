@@ -8,6 +8,7 @@ const LED = require('raspberry-pi-led')
 const Promise = require('bluebird')
 const RemoteControl = require('./remote-control')
 const pubnubConnect = require('./pubnub')
+const exit = require('./exit')
 
 class Client {
   constructor () {
@@ -37,8 +38,8 @@ class Client {
             Promise
               .resolve(self.remoteControl.changeState())
               .catch(err => {
-                error('Got an error while calling remoteControl.changeState(). Exiting process.  err:', err)
-                process.exit(2)
+                error('Got an error while calling remoteControl.changeState().', 'err:', err)
+                return exit(3)
               })
           }
         }]

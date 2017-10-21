@@ -4,8 +4,9 @@ const error = require('debug')('ha:index:error')
 
 const Client = require('./client')
 const config = require('./config')
-
+const Promise = require('bluebird')
 const client = new Client()
+const exit = require('./exit')
 
 Promise
   .resolve(client.run())
@@ -14,7 +15,7 @@ Promise
     'Login URL:', config.loginUrl))
   .catch(err => {
     error('Error while running client.', err)
-    process.exit(3)
+    return exit(2)
   })
 
 setInterval(() => verbose('memory:', process.memoryUsage()), 1000 * 60 * 5)

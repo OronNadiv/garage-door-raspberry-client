@@ -2,7 +2,7 @@ const info = require('debug')('ha:remote-control:info')
 
 const diehard = require('diehard')
 const Promise = require('bluebird')
-const gpio = Promise.promisifyAll(require('pi-gpio'))
+const gpiop = require('rpi-gpio').promise
 
 class RemoteControl {
   constructor (pin) {
@@ -12,15 +12,18 @@ class RemoteControl {
   _initialize () {
     const self = this
 
-    return gpio.openAsync(self.pin, 'output')
+    return gpiop
+      .setup(self.pin, 'output')
       .then(() => {
         info('opened PIN_OPEN_DOOR_SIGNAL')
         diehard.register(done => {
           info('closing PIN_OPEN_DOOR_SIGNAL')
-          gpio.close(self.pin, () => {
-            info('closed PIN_OPEN_DOOR_SIGNAL')
-            done()
-          })
+          gpiop
+            .destroy(self.pin)
+            .then(() => {
+              info('closed PIN_OPEN_DOOR_SIGNAL')
+              done()
+            })
         })
       })
   }
@@ -34,14 +37,14 @@ class RemoteControl {
       return self._initialize()
     } else {
       info('Pin is already open.  Setting to low (active).')
-      return gpio.writeAsync(self.pin, 0)
+      return gpiop.write(self.pin, 0)
     }
   }
 
   _releaseButton () {
     return this.pin < 0
       ? Promise.resolve()
-      : gpio.writeAsync(this.pin, 1)
+      : gpiop.write(this.pin, 1)
   }
 
   changeState () {

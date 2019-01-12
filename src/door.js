@@ -6,7 +6,8 @@ const config = require('./config')
 const diehard = require('diehard')
 const PIN_DOOR_STATE = config.pins.readDoorState
 const Promise = require('bluebird')
-const gpiop = require('rpi-gpio').promise
+const gpio = require('rpi-gpio')
+const gpiop = gpio.promise
 const request = require('http-as-promised')
 const url = require('url')
 const JWTGenerator = require('jwt-generator')
@@ -59,7 +60,7 @@ class Door {
     info('monitor called.')
     const self = this
     return gpiop
-      .setup(PIN_DOOR_STATE, 'input')
+      .setup(PIN_DOOR_STATE, gpio.DIR_IN)
       .then(() => {
         info('opened PIN_DOOR_STATE')
         diehard.register(done => {

@@ -2,7 +2,8 @@ const info = require('debug')('ha:remote-control:info')
 
 const diehard = require('diehard')
 const Promise = require('bluebird')
-const gpiop = require('rpi-gpio').promise
+const gpio = require('rpi-gpio')
+const gpiop = gpio.promise
 
 class RemoteControl {
   constructor (pin) {
@@ -13,7 +14,7 @@ class RemoteControl {
     const self = this
 
     return gpiop
-      .setup(self.pin, 'output')
+      .setup(self.pin, gpio.DIR_OUT)
       .then(() => {
         info('opened PIN_OPEN_DOOR_SIGNAL')
         diehard.register(done => {

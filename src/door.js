@@ -6,7 +6,8 @@ const config = require('./config')
 const diehard = require('diehard')
 const PIN_DOOR_STATE = config.pins.readDoorState
 const Promise = require('bluebird')
-const gpio = Promise.promisifyAll(require('pi-gpio'))
+const gpio = require('rpi-gpio')
+const gpiop = gpio.promise
 const request = require('http-as-promised')
 const url = require('url')
 const JWTGenerator = require('jwt-generator')
@@ -58,27 +59,29 @@ class Door {
   monitor () {
     info('monitor called.')
     const self = this
-    return Promise
-      .resolve(gpio.openAsync(PIN_DOOR_STATE, 'input')
-        .then(() => {
-          info('opened PIN_DOOR_STATE')
-          diehard.register(done => {
-            if (intervalHandler) {
-              clearInterval(intervalHandler)
-              intervalHandler = null
-            }
-            info('closing PIN_DOOR_STATE')
-            gpio.close(PIN_DOOR_STATE, () => {
+    return gpiop
+      .setup(PIN_DOOR_STATE, gpio.DIR_IN)
+      .then(() => {
+        info('opened PIN_DOOR_STATE')
+        diehard.register(done => {
+          if (intervalHandler) {
+            clearInterval(intervalHandler)
+            intervalHandler = null
+          }
+          info('closing PIN_DOOR_STATE')
+          gpiop
+            .destroy(PIN_DOOR_STATE)
+            .then(() => {
               info('closed PIN_DOOR_STATE')
               done()
             })
-          })
-        }))
+        })
+      })
       .then(() => {
         intervalHandler = setInterval(() => {
           verbose('setInterval called.')
-          Promise
-            .resolve(gpio.readAsync(PIN_DOOR_STATE))
+          gpiop
+            .read(PIN_DOOR_STATE)
             .then(state => {
               verbose('read state:', state)
               if (self.lastState === state || self.isUpdatingServer) {

@@ -28,24 +28,24 @@
     "http-as-promised": "^2.0.1",
     "jsonwebtoken": "^8.4.0",
     "jwt-generator": "^3.1.0",
-    "moment": "^2.23.0",
+    "moment": "^2.24.0",
     "pi-gpio": "^0.0.8",
     "raspberry-pi-led": "^2.2.0",
     "touch": "^3.1.0"
   },
   "devDependencies": {
-    "ajv": "^6.6.2",
+    "ajv": "^6.9.1",
     "coveralls": "^3.0.2",
-    "eslint": "^5.12.0",
+    "eslint": "^5.14.0",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-mocha": "^5.2.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-mocha": "^5.3.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "mocha": "^5.2.0",
     "mockery": "^2.1.0",
     "nock": "^9.6.1",
-    "nyc": "^12.0.2"
+    "nyc": "^13.3.0"
   }
 }

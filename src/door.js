@@ -23,7 +23,7 @@ class Door {
   _sendState (state, isRetry = false) {
     const self = this
 
-    info('sendState called.', 'isRetry:', isRetry)
+    info('sendState called.', 'state:', state, 'isRetry:', isRetry)
     return Promise
       .try(() => {
         return isRetry

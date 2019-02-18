@@ -23,7 +23,7 @@ class Door {
   _sendState (state, isRetry = false) {
     const self = this
 
-    info('sendState called.', 'state:', state, 'isRetry:', isRetry)
+    info('sendState called.', 'state (is open):', state, 'isRetry:', isRetry)
     return Promise
       .try(() => {
         return isRetry
@@ -38,7 +38,7 @@ class Door {
           auth: {
             bearer: token
           },
-          form: {is_open: state === 1}
+          form: {is_open: state}
         })
       })
       .then(() => {
